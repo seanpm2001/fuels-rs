@@ -90,7 +90,9 @@ abi MyContract {
     fn enum_w_generic(arg1: EnumWGeneric<u64>) -> EnumWGeneric<u64>;
 
     fn complex_test(arg1: MegaExample<str[2], b256>);
-    fn array_with_generic_struct(arg: StructWArrWGenericStruct<b256>) -> StructWArrWGenericStruct<b256>;
+    fn array_with_generic_struct(
+        arg: StructWArrWGenericStruct<b256>,
+    ) -> StructWArrWGenericStruct<b256>;
 }
 
 impl MyContract for Contract {
@@ -183,7 +185,9 @@ impl MyContract for Contract {
 
     fn complex_test(_arg: MegaExample<str[2], b256>) {}
 
-    fn array_with_generic_struct(arg: StructWArrWGenericStruct<b256>) -> StructWArrWGenericStruct<b256> {
+    fn array_with_generic_struct(
+        arg: StructWArrWGenericStruct<b256>,
+    ) -> StructWArrWGenericStruct<b256> {
         arg
     }
 }
