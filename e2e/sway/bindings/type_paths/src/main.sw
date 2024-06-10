@@ -3,15 +3,14 @@ contract;
 mod contract_a_types;
 mod another_lib;
 
-use contract_a_types::AWrapper;
 use another_lib::VeryCommonNameStruct;
 
 abi MyContract {
-    fn test_function(arg: AWrapper) -> VeryCommonNameStruct;
+    fn test_function(arg: contract_a_types::VeryCommonNameStruct) -> VeryCommonNameStruct;
 }
 
 impl MyContract for Contract {
-    fn test_function(_arg: AWrapper) -> VeryCommonNameStruct {
-        VeryCommonNameStruct { field_a: 10u32 }
+    fn test_function(arg: contract_a_types::VeryCommonNameStruct) -> VeryCommonNameStruct {
+        VeryCommonNameStruct { field: arg.another_field }
     }
 }

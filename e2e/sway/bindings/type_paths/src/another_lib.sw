@@ -1,5 +1,5 @@
 library;
 
 pub struct VeryCommonNameStruct {
-    pub field_a: u32,
+    pub field: u32,
 }
