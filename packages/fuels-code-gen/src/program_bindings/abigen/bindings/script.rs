@@ -145,7 +145,8 @@ mod tests {
         let the_function = ABIFunction {
             inputs: vec![TypeApplication {
                 name: String::from("bimbam"),
-                type_id: 1,
+                type_id: "b760f44fa5965c2474a3b471467a22c43185152129295af588b022ae50b50903"
+                    .to_string(),
                 ..Default::default()
             }],
             name: "main".to_string(),
@@ -163,17 +164,19 @@ mod tests {
         };
         let types = [
             (
-                0,
+                "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d".to_string(),
                 TypeDeclaration {
-                    type_id: 0,
+                    type_id: "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d"
+                        .to_string(),
                     type_field: String::from("()"),
                     ..Default::default()
                 },
             ),
             (
-                1,
+                "b760f44fa5965c2474a3b471467a22c43185152129295af588b022ae50b50903".to_string(),
                 TypeDeclaration {
-                    type_id: 1,
+                    type_id: "b760f44fa5965c2474a3b471467a22c43185152129295af588b022ae50b50903"
+                        .to_string(),
                     type_field: String::from("bool"),
                     ..Default::default()
                 },

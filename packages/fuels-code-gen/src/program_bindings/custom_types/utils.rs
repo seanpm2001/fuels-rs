@@ -31,20 +31,20 @@ mod tests {
     fn extracts_generic_types() -> Result<()> {
         // given
         let declaration = TypeDeclaration {
-            type_id: 0,
+            type_id: "0".to_string(),
             type_field: "".to_string(),
             components: None,
             type_parameters: Some(vec![1, 2]),
         };
         let generic_1 = TypeDeclaration {
-            type_id: 1,
+            type_id: "1".to_string(),
             type_field: "generic T".to_string(),
             components: None,
             type_parameters: None,
         };
 
         let generic_2 = TypeDeclaration {
-            type_id: 2,
+            type_id: "2",
             type_field: "generic K".to_string(),
             components: None,
             type_parameters: None,

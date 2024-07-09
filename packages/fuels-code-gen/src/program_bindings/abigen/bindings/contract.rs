@@ -196,110 +196,110 @@ mod tests {
             {
                 "types": [
                   {
-                    "typeId": 6,
+                    "typeId": "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
                     "type": "u64",
                     "components": null,
                     "typeParameters": null
                   },
                   {
-                    "typeId": 8,
+                    "typeId": "7c5ee1cecf5f8eacd1284feb5f0bf2bdea533a51e2f0c9aabe9236d335989f3b",
                     "type": "b256",
                     "components": null,
                     "typeParameters": null
                   },
                   {
-                    "typeId": 6,
+                    "typeId": "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
                     "type": "u64",
                     "components": null,
                     "typeParameters": null
                   },
                   {
-                    "typeId": 8,
+                    "typeId": "7c5ee1cecf5f8eacd1284feb5f0bf2bdea533a51e2f0c9aabe9236d335989f3b",
                     "type": "b256",
                     "components": null,
                     "typeParameters": null
                   },
                   {
-                    "typeId": 10,
+                    "typeId": "b760f44fa5965c2474a3b471467a22c43185152129295af588b022ae50b50903",
                     "type": "bool",
                     "components": null,
                     "typeParameters": null
                   },
                   {
-                    "typeId": 12,
+                    "typeId": "5599571157f54ae755e14c9acc667a8a7ebc9e723da12e7f35e9ed76f31153b1",
                     "type": "struct MyStruct1",
                     "components": [
                       {
                         "name": "x",
-                        "type": 6,
+                        "type": "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
                         "typeArguments": null
                       },
                       {
                         "name": "y",
-                        "type": 8,
+                        "type": "7c5ee1cecf5f8eacd1284feb5f0bf2bdea533a51e2f0c9aabe9236d335989f3b",
                         "typeArguments": null
                       }
                     ],
                     "typeParameters": null
                   },
                   {
-                    "typeId": 6,
+                    "typeId": "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
                     "type": "u64",
                     "components": null,
                     "typeParameters": null
                   },
                   {
-                    "typeId": 8,
+                    "typeId": "7c5ee1cecf5f8eacd1284feb5f0bf2bdea533a51e2f0c9aabe9236d335989f3b",
                     "type": "b256",
                     "components": null,
                     "typeParameters": null
                   },
                   {
-                    "typeId": 2,
+                    "typeId": "5599571157f54ae755e14c9acc667a8a7ebc9e723da12e7f35e9ed76f31153b1",
                     "type": "struct MyStruct1",
                     "components": [
                       {
                         "name": "x",
-                        "type": 6,
+                        "type": "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
                         "typeArguments": null
                       },
                       {
                         "name": "y",
-                        "type": 8,
+                        "type": "7c5ee1cecf5f8eacd1284feb5f0bf2bdea533a51e2f0c9aabe9236d335989f3b",
                         "typeArguments": null
                       }
                     ],
                     "typeParameters": null
                   },
                   {
-                    "typeId": 3,
+                    "typeId": "535db000d52247639d2b0d6b9e55680642847fe98fab7e63f4e775bbdff1a351",
                     "type": "struct MyStruct2",
                     "components": [
                       {
                         "name": "x",
-                        "type": 10,
+                        "type": "b760f44fa5965c2474a3b471467a22c43185152129295af588b022ae50b50903",
                         "typeArguments": null
                       },
                       {
                         "name": "y",
-                        "type": 12,
+                        "type": "5599571157f54ae755e14c9acc667a8a7ebc9e723da12e7f35e9ed76f31153b1",
                         "typeArguments": []
                       }
                     ],
                     "typeParameters": null
                   },
                   {
-                    "typeId": 26,
+                    "typeId": "5599571157f54ae755e14c9acc667a8a7ebc9e723da12e7f35e9ed76f31153b1",
                     "type": "struct MyStruct1",
                     "components": [
                       {
                         "name": "x",
-                        "type": 6,
+                        "type": "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
                         "typeArguments": null
                       },
                       {
                         "name": "y",
-                        "type": 8,
+                        "type": "7c5ee1cecf5f8eacd1284feb5f0bf2bdea533a51e2f0c9aabe9236d335989f3b",
                         "typeArguments": null
                       }
                     ],
@@ -312,19 +312,19 @@ mod tests {
                     "inputs": [
                       {
                         "name": "s1",
-                        "type": 2,
+                        "type": "5599571157f54ae755e14c9acc667a8a7ebc9e723da12e7f35e9ed76f31153b1",
                         "typeArguments": []
                       },
                       {
                         "name": "s2",
-                        "type": 3,
+                        "type": "535db000d52247639d2b0d6b9e55680642847fe98fab7e63f4e775bbdff1a351",
                         "typeArguments": []
                       }
                     ],
                     "name": "some_abi_funct",
                     "output": {
                       "name": "",
-                      "type": 26,
+                      "type": "5599571157f54ae755e14c9acc667a8a7ebc9e723da12e7f35e9ed76f31153b1",
                       "typeArguments": []
                     },
                     "attributes": [
@@ -343,8 +343,8 @@ mod tests {
         let types = parsed_abi
             .types
             .into_iter()
-            .map(|t| (t.type_id, t))
-            .collect::<HashMap<usize, TypeDeclaration>>();
+            .map(|t| (t.type_id.clone(), t))
+            .collect::<HashMap<String, TypeDeclaration>>();
 
         // Grabbing the one and only function in it.
         let result = expand_fn(&FullABIFunction::from_counterpart(
@@ -383,8 +383,9 @@ mod tests {
     fn expand_contract_method_simple() -> Result<()> {
         let the_function = ABIFunction {
             inputs: vec![TypeApplication {
-                name: String::from("bimbam"),
-                type_id: 1,
+                name: "bimbam".to_string(),
+                type_id: "b760f44fa5965c2474a3b471467a22c43185152129295af588b022ae50b50903"
+                    .to_string(),
                 ..Default::default()
             }],
             name: "HelloWorld".to_string(),
@@ -396,17 +397,19 @@ mod tests {
         };
         let types = [
             (
-                0,
+                "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d".to_string(),
                 TypeDeclaration {
-                    type_id: 0,
+                    type_id: "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d"
+                        .to_string(),
                     type_field: String::from("()"),
                     ..Default::default()
                 },
             ),
             (
-                1,
+                "b760f44fa5965c2474a3b471467a22c43185152129295af588b022ae50b50903".to_string(),
                 TypeDeclaration {
-                    type_id: 1,
+                    type_id: "b760f44fa5965c2474a3b471467a22c43185152129295af588b022ae50b50903"
+                        .to_string(),
                     type_field: String::from("bool"),
                     ..Default::default()
                 },
@@ -442,13 +445,15 @@ mod tests {
         let the_function = ABIFunction {
             inputs: vec![TypeApplication {
                 name: String::from("the_only_allowed_input"),
-                type_id: 4,
+                type_id: "f45c66ebab65ce69b034b71b019458b77ab72a1194a78f9d79150e5b4e2eb60c"
+                    .to_string(),
                 ..Default::default()
             }],
             name: "hello_world".to_string(),
             output: TypeApplication {
                 name: String::from("stillnotused"),
-                type_id: 1,
+                type_id: "9d2926e7f0e9641f5feb6c2325f440ddfe5b0e2d8ab8e3612ef5667e1ea79310"
+                    .to_string(),
                 ..Default::default()
             },
             attributes: Some(vec![
@@ -464,19 +469,24 @@ mod tests {
         };
         let types = [
             (
-                1,
+                "9d2926e7f0e9641f5feb6c2325f440ddfe5b0e2d8ab8e3612ef5667e1ea79310".to_string(),
                 TypeDeclaration {
-                    type_id: 1,
+                    type_id: "9d2926e7f0e9641f5feb6c2325f440ddfe5b0e2d8ab8e3612ef5667e1ea79310"
+                        .to_string(),
                     type_field: String::from("enum EntropyCirclesEnum"),
                     components: Some(vec![
                         TypeApplication {
                             name: String::from("Postcard"),
-                            type_id: 2,
+                            type_id:
+                                "b760f44fa5965c2474a3b471467a22c43185152129295af588b022ae50b50903"
+                                    .to_string(),
                             ..Default::default()
                         },
                         TypeApplication {
                             name: String::from("Teacup"),
-                            type_id: 3,
+                            type_id:
+                                "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0"
+                                    .to_string(),
                             ..Default::default()
                         },
                     ]),
@@ -484,35 +494,42 @@ mod tests {
                 },
             ),
             (
-                2,
+                "b760f44fa5965c2474a3b471467a22c43185152129295af588b022ae50b50903".to_string(),
                 TypeDeclaration {
-                    type_id: 2,
+                    type_id: "b760f44fa5965c2474a3b471467a22c43185152129295af588b022ae50b50903"
+                        .to_string(),
                     type_field: String::from("bool"),
                     ..Default::default()
                 },
             ),
             (
-                3,
+                "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0".to_string(),
                 TypeDeclaration {
-                    type_id: 3,
+                    type_id: "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0"
+                        .to_string(),
                     type_field: String::from("u64"),
                     ..Default::default()
                 },
             ),
             (
-                4,
+                "f45c66ebab65ce69b034b71b019458b77ab72a1194a78f9d79150e5b4e2eb60c".to_string(),
                 TypeDeclaration {
-                    type_id: 4,
+                    type_id: "f45c66ebab65ce69b034b71b019458b77ab72a1194a78f9d79150e5b4e2eb60c"
+                        .to_string(),
                     type_field: String::from("struct SomeWeirdFrenchCuisine"),
                     components: Some(vec![
                         TypeApplication {
                             name: String::from("Beef"),
-                            type_id: 2,
+                            type_id:
+                                "b760f44fa5965c2474a3b471467a22c43185152129295af588b022ae50b50903"
+                                    .to_string(),
                             ..Default::default()
                         },
                         TypeApplication {
                             name: String::from("BurgundyWine"),
-                            type_id: 3,
+                            type_id:
+                                "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0"
+                                    .to_string(),
                             ..Default::default()
                         },
                     ]),
