@@ -355,10 +355,10 @@ mod tests {
     ) -> Result<()> {
         let types = type_declarations
             .iter()
-            .map(|td| (td.type_id, td.clone()))
+            .map(|td| (td.type_id.clone(), td.clone()))
             .collect::<HashMap<_, _>>();
         let type_application = TypeApplication {
-            type_id: type_declarations[0].type_id,
+            type_id: type_declarations.first().expect("is there").type_id.clone(),
             ..Default::default()
         };
 
@@ -378,7 +378,7 @@ mod tests {
         test_resolve_first_type(
             expected,
             &[TypeDeclaration {
-                type_id: 0,
+                type_id: "0".to_string(),
                 type_field: type_field.to_string(),
                 ..Default::default()
             }],
@@ -426,16 +426,19 @@ mod tests {
             "[::core::primitive::u8 ; 3usize]",
             &[
                 TypeDeclaration {
-                    type_id: 0,
+                    type_id: "2dc21094c0e9d81b843d1c1c308e2d60755d727d0f9b8981389845dd6d8686b2"
+                        .to_string(),
                     type_field: "[u8; 3]".to_string(),
                     components: Some(vec![TypeApplication {
-                        type_id: 1,
+                        type_id: "c89951a24c6ca28c13fd1cfdc646b2b656d69e61a92b91023be7eb58eb914b6b"
+                            .to_string(),
                         ..Default::default()
                     }]),
                     ..Default::default()
                 },
                 TypeDeclaration {
-                    type_id: 1,
+                    type_id: "c89951a24c6ca28c13fd1cfdc646b2b656d69e61a92b91023be7eb58eb914b6b"
+                        .to_string(),
                     type_field: "u8".to_string(),
                     ..Default::default()
                 },
@@ -449,59 +452,80 @@ mod tests {
             ":: std :: vec :: Vec",
             &[
                 TypeDeclaration {
-                    type_id: 0,
+                    type_id: "0ed22b36f9d391a88e4c7f547515f73d17cc23ae75e1d38266d88bd905545fac"
+                        .to_string(),
                     type_field: "struct std::vec::Vec".to_string(),
                     components: Some(vec![
                         TypeApplication {
                             name: "buf".to_string(),
-                            type_id: 2,
+                            type_id:
+                                "96a280a43420b581941eb0b5bfde9fc87356dcbc362f930a3d4de576efbd08c0"
+                                    .to_string(),
                             type_arguments: Some(vec![TypeApplication {
-                                type_id: 1,
+                    type_id: "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5"
+                        .to_string(),
                                 ..Default::default()
                             }]),
                         },
                         TypeApplication {
                             name: "len".to_string(),
-                            type_id: 3,
+                            type_id:
+                                "57e3d53c9cb625ad9ed8ece51564d1f6fb36c97759c8cf9f58ac6d23f508991d"
+                                    .to_string(),
                             ..Default::default()
                         },
                     ]),
-                    type_parameters: Some(vec![1]),
+                    type_parameters: Some(vec![
+                        "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5"
+                            .to_string(),
+                    ]),
                 },
                 TypeDeclaration {
-                    type_id: 1,
+                    type_id: "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5"
+                        .to_string(),
                     type_field: "generic T".to_string(),
                     ..Default::default()
                 },
                 TypeDeclaration {
-                    type_id: 2,
+                    type_id: "96a280a43420b581941eb0b5bfde9fc87356dcbc362f930a3d4de576efbd08c0"
+                        .to_string(),
                     type_field: "raw untyped ptr".to_string(),
                     ..Default::default()
                 },
                 TypeDeclaration {
-                    type_id: 3,
+                    type_id: "57e3d53c9cb625ad9ed8ece51564d1f6fb36c97759c8cf9f58ac6d23f508991d"
+                        .to_string(),
                     type_field: "struct std::vec::RawVec".to_string(),
                     components: Some(vec![
                         TypeApplication {
                             name: "ptr".to_string(),
-                            type_id: 2,
+                            type_id:
+                                "96a280a43420b581941eb0b5bfde9fc87356dcbc362f930a3d4de576efbd08c0"
+                                    .to_string(),
                             ..Default::default()
                         },
                         TypeApplication {
                             name: "cap".to_string(),
-                            type_id: 4,
+                            type_id:
+                                "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0"
+                                    .to_string(),
                             ..Default::default()
                         },
                     ]),
-                    type_parameters: Some(vec![1]),
+                    type_parameters: Some(vec![
+                        "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5"
+                            .to_string(),
+                    ]),
                 },
                 TypeDeclaration {
-                    type_id: 4,
+                    type_id: "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0"
+                        .to_string(),
                     type_field: "u64".to_string(),
                     ..Default::default()
                 },
                 TypeDeclaration {
-                    type_id: 5,
+                    type_id: "c89951a24c6ca28c13fd1cfdc646b2b656d69e61a92b91023be7eb58eb914b6b"
+                        .to_string(),
                     type_field: "u8".to_string(),
                     ..Default::default()
                 },
@@ -515,56 +539,70 @@ mod tests {
             ":: fuels :: types :: Bytes",
             &[
                 TypeDeclaration {
-                    type_id: 0,
+                    type_id: "1da6c09654f3eb591d21726d31b0fdba22869f15863f36b72855402dbd5e053d"
+                        .to_string(),
                     type_field: "struct String".to_string(),
                     components: Some(vec![TypeApplication {
                         name: "bytes".to_string(),
-                        type_id: 1,
+                        type_id: "0d16a36e45d9f4883f5a9ef6e0c33b0ca072ece2aca94fc0ce1343fdbbcd5d79"
+                            .to_string(),
                         ..Default::default()
                     }]),
                     ..Default::default()
                 },
                 TypeDeclaration {
-                    type_id: 0,
+                    type_id: "cdd87b7d12fe505416570c294c884bca819364863efe3bf539245fa18515fbbb"
+                        .to_string(),
                     type_field: "struct std::bytes::Bytes".to_string(),
                     components: Some(vec![
                         TypeApplication {
                             name: "buf".to_string(),
-                            type_id: 1,
+                            type_id:
+                                "0d16a36e45d9f4883f5a9ef6e0c33b0ca072ece2aca94fc0ce1343fdbbcd5d79"
+                                    .to_string(),
                             ..Default::default()
                         },
                         TypeApplication {
                             name: "len".to_string(),
-                            type_id: 3,
+                            type_id:
+                                "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0"
+                                    .to_string(),
                             ..Default::default()
                         },
                     ]),
                     ..Default::default()
                 },
                 TypeDeclaration {
-                    type_id: 1,
+                    type_id: "0d16a36e45d9f4883f5a9ef6e0c33b0ca072ece2aca94fc0ce1343fdbbcd5d79"
+                        .to_string(),
                     type_field: "struct std::bytes::RawBytes".to_string(),
                     components: Some(vec![
                         TypeApplication {
                             name: "ptr".to_string(),
-                            type_id: 2,
+                            type_id:
+                                "96a280a43420b581941eb0b5bfde9fc87356dcbc362f930a3d4de576efbd08c0"
+                                    .to_string(),
                             ..Default::default()
                         },
                         TypeApplication {
                             name: "cap".to_string(),
-                            type_id: 3,
+                            type_id:
+                                "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0"
+                                    .to_string(),
                             ..Default::default()
                         },
                     ]),
                     ..Default::default()
                 },
                 TypeDeclaration {
-                    type_id: 2,
+                    type_id: "96a280a43420b581941eb0b5bfde9fc87356dcbc362f930a3d4de576efbd08c0"
+                        .to_string(),
                     type_field: "raw untyped ptr".to_string(),
                     ..Default::default()
                 },
                 TypeDeclaration {
-                    type_id: 3,
+                    type_id: "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0"
+                        .to_string(),
                     type_field: "u64".to_string(),
                     ..Default::default()
                 },
@@ -578,56 +616,70 @@ mod tests {
             ":: std :: string :: String",
             &[
                 TypeDeclaration {
-                    type_id: 0,
+                    type_id: "1da6c09654f3eb591d21726d31b0fdba22869f15863f36b72855402dbd5e053d"
+                        .to_string(),
                     type_field: "struct String".to_string(),
                     components: Some(vec![TypeApplication {
                         name: "bytes".to_string(),
-                        type_id: 1,
+                        type_id: "cdd87b7d12fe505416570c294c884bca819364863efe3bf539245fa18515fbbb"
+                            .to_string(),
                         ..Default::default()
                     }]),
                     ..Default::default()
                 },
                 TypeDeclaration {
-                    type_id: 1,
+                    type_id: "cdd87b7d12fe505416570c294c884bca819364863efe3bf539245fa18515fbbb"
+                        .to_string(),
                     type_field: "struct std::bytes::Bytes".to_string(),
                     components: Some(vec![
                         TypeApplication {
                             name: "buf".to_string(),
-                            type_id: 2,
+                            type_id:
+                                "0d16a36e45d9f4883f5a9ef6e0c33b0ca072ece2aca94fc0ce1343fdbbcd5d79"
+                                    .to_string(),
                             ..Default::default()
                         },
                         TypeApplication {
                             name: "len".to_string(),
-                            type_id: 4,
+                            type_id:
+                                "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0"
+                                    .to_string(),
                             ..Default::default()
                         },
                     ]),
                     ..Default::default()
                 },
                 TypeDeclaration {
-                    type_id: 2,
+                    type_id: "0d16a36e45d9f4883f5a9ef6e0c33b0ca072ece2aca94fc0ce1343fdbbcd5d79"
+                        .to_string(),
                     type_field: "struct std::bytes::RawBytes".to_string(),
                     components: Some(vec![
                         TypeApplication {
                             name: "ptr".to_string(),
-                            type_id: 3,
+                            type_id:
+                                "96a280a43420b581941eb0b5bfde9fc87356dcbc362f930a3d4de576efbd08c0"
+                                    .to_string(),
                             ..Default::default()
                         },
                         TypeApplication {
                             name: "cap".to_string(),
-                            type_id: 4,
+                            type_id:
+                                "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0"
+                                    .to_string(),
                             ..Default::default()
                         },
                     ]),
                     ..Default::default()
                 },
                 TypeDeclaration {
-                    type_id: 3,
+                    type_id: "96a280a43420b581941eb0b5bfde9fc87356dcbc362f930a3d4de576efbd08c0"
+                        .to_string(),
                     type_field: "raw untyped ptr".to_string(),
                     ..Default::default()
                 },
                 TypeDeclaration {
-                    type_id: 4,
+                    type_id: "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0"
+                        .to_string(),
                     type_field: "u64".to_string(),
                     ..Default::default()
                 },
@@ -646,29 +698,39 @@ mod tests {
             "self :: SomeStruct",
             &[
                 TypeDeclaration {
-                    type_id: 0,
+                    type_id: "c672b07b5808bcc04715d73ca6d42eaabd332266144c1017c20833ef05a4a484"
+                        .to_string(),
                     type_field: "struct SomeStruct".to_string(),
                     components: Some(vec![
                         TypeApplication {
                             name: "foo".to_string(),
-                            type_id: 1,
+                            type_id:
+                                "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5"
+                                    .to_string(),
                             ..Default::default()
                         },
                         TypeApplication {
                             name: "bar".to_string(),
-                            type_id: 2,
+                            type_id:
+                                "c89951a24c6ca28c13fd1cfdc646b2b656d69e61a92b91023be7eb58eb914b6b"
+                                    .to_string(),
                             ..Default::default()
                         },
                     ]),
-                    type_parameters: Some(vec![1]),
+                    type_parameters: Some(vec![
+                        "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5"
+                            .to_string(),
+                    ]),
                 },
                 TypeDeclaration {
-                    type_id: 1,
+                    type_id: "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5"
+                        .to_string(),
                     type_field: "generic T".to_string(),
                     ..Default::default()
                 },
                 TypeDeclaration {
-                    type_id: 2,
+                    type_id: "c89951a24c6ca28c13fd1cfdc646b2b656d69e61a92b91023be7eb58eb914b6b"
+                        .to_string(),
                     type_field: "u8".to_string(),
                     ..Default::default()
                 },
@@ -682,29 +744,39 @@ mod tests {
             "self :: SomeEnum",
             &[
                 TypeDeclaration {
-                    type_id: 0,
+                    type_id: "e851f5ad23ee7d590c18e60c07c2045740bf05cb5693ba11375acd544bddf92b"
+                        .to_string(),
                     type_field: "enum SomeEnum".to_string(),
                     components: Some(vec![
                         TypeApplication {
                             name: "foo".to_string(),
-                            type_id: 1,
+                            type_id:
+                                "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5"
+                                    .to_string(),
                             ..Default::default()
                         },
                         TypeApplication {
                             name: "bar".to_string(),
-                            type_id: 2,
+                            type_id:
+                                "c89951a24c6ca28c13fd1cfdc646b2b656d69e61a92b91023be7eb58eb914b6b"
+                                    .to_string(),
                             ..Default::default()
                         },
                     ]),
-                    type_parameters: Some(vec![1]),
+                    type_parameters: Some(vec![
+                        "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5"
+                            .to_string(),
+                    ]),
                 },
                 TypeDeclaration {
-                    type_id: 1,
+                    type_id: "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5"
+                        .to_string(),
                     type_field: "generic T".to_string(),
                     ..Default::default()
                 },
                 TypeDeclaration {
-                    type_id: 2,
+                    type_id: "c89951a24c6ca28c13fd1cfdc646b2b656d69e61a92b91023be7eb58eb914b6b"
+                        .to_string(),
                     type_field: "u8".to_string(),
                     ..Default::default()
                 },
@@ -718,45 +790,61 @@ mod tests {
             "(::core::primitive::u8, ::core::primitive::u16, ::core::primitive::bool, T,)",
             &[
                 TypeDeclaration {
-                    type_id: 0,
+                    type_id: "ff961028ea40a670ee0326486cd4c29998c552e1fa5e0d72686b5fbc96f2a627"
+                        .to_string(),
                     type_field: "(u8, u16, bool, T)".to_string(),
                     components: Some(vec![
                         TypeApplication {
-                            type_id: 1,
+                            type_id:
+                                "c89951a24c6ca28c13fd1cfdc646b2b656d69e61a92b91023be7eb58eb914b6b"
+                                    .to_string(),
                             ..Default::default()
                         },
                         TypeApplication {
-                            type_id: 2,
+                            type_id:
+                                "29881aad8730c5ab11d275376323d8e4ff4179aae8ccb6c13fe4902137e162ef"
+                                    .to_string(),
                             ..Default::default()
                         },
                         TypeApplication {
-                            type_id: 3,
+                            type_id:
+                                "b760f44fa5965c2474a3b471467a22c43185152129295af588b022ae50b50903"
+                                    .to_string(),
                             ..Default::default()
                         },
                         TypeApplication {
-                            type_id: 4,
+                            type_id:
+                                "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5"
+                                    .to_string(),
                             ..Default::default()
                         },
                     ]),
-                    type_parameters: Some(vec![4]),
+                    type_parameters: Some(vec![
+                        "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5"
+                            .to_string(),
+                    ]),
                 },
                 TypeDeclaration {
-                    type_id: 1,
+                    type_id: "c89951a24c6ca28c13fd1cfdc646b2b656d69e61a92b91023be7eb58eb914b6b"
+                        .to_string(),
                     type_field: "u8".to_string(),
                     ..Default::default()
                 },
                 TypeDeclaration {
-                    type_id: 2,
+                    type_id: "29881aad8730c5ab11d275376323d8e4ff4179aae8ccb6c13fe4902137e162ef"
+                        .to_string(),
                     type_field: "u16".to_string(),
                     ..Default::default()
                 },
                 TypeDeclaration {
-                    type_id: 3,
+                    type_id: "b760f44fa5965c2474a3b471467a22c43185152129295af588b022ae50b50903"
+                        .to_string(),
                     type_field: "bool".to_string(),
                     ..Default::default()
                 },
                 TypeDeclaration {
-                    type_id: 4,
+                    type_id: "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5"
+                        .to_string(),
                     type_field: "generic T".to_string(),
                     ..Default::default()
                 },

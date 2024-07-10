@@ -25,9 +25,12 @@ mod tests {
                 name = "MyContract",
                 abi = r#"
             {
+                "programType": "contract",
+                "specVersion": "0.0.0",
+                "abiVersion": "0.0.0",
                 "types": [
                   {
-                    "typeId": 0,
+                    "typeId": "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
                     "type": "u64",
                     "components": null,
                     "typeParameters": null
@@ -38,14 +41,14 @@ mod tests {
                     "inputs": [
                       {
                         "name": "value",
-                        "type": 0,
+                        "type": "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
                         "typeArguments": null
                       }
                     ],
                     "name": "initialize_counter",
                     "output": {
                       "name": "",
-                      "type": 0,
+                      "type": "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
                       "typeArguments": null
                     }
                   },
@@ -53,14 +56,14 @@ mod tests {
                     "inputs": [
                       {
                         "name": "value",
-                        "type": 0,
+                        "type": "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
                         "typeArguments": null
                       }
                     ],
                     "name": "increment_counter",
                     "output": {
                       "name": "",
-                      "type": 0,
+                      "type": "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
                       "typeArguments": null
                     }
                   }

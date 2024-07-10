@@ -18,63 +18,66 @@ mod tests {
             name = "no_name",
             abi = r#"
                 {
+                  "programType": "script",
+                  "specVersion": "0.0.0",
+                  "abiVersion": "0.0.0",
                   "types": [
                     {
-                      "typeId": 0,
+                      "typeId": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d",
                       "type": "()",
                       "components": [],
                       "typeParameters": null
                     },
                     {
-                      "typeId": 1,
+                      "typeId": "7c5ee1cecf5f8eacd1284feb5f0bf2bdea533a51e2f0c9aabe9236d335989f3b",
                       "type": "bool",
                       "components": null,
                       "typeParameters": null
                     },
                     {
-                      "typeId": 2,
+                      "typeId": "e8eb147e011343bc28f52b84fcc29cd93b181471f88c5c6b77f5e0dd18193fa2",
                       "type": "enum SomeEnum",
                       "components": [
                         {
                           "name": "V1",
-                          "type": 0,
+                          "type": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d",
                           "typeArguments": null
                         },
                         {
                           "name": "V2",
-                          "type": 3,
+                          "type": "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5",
                           "typeArguments": null
                         }
                       ],
                       "typeParameters": [
-                        3
+                      "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5"
                       ]
                     },
                     {
-                      "typeId": 3,
+                      "typeId": "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5",
                       "type": "generic T",
                       "components": null,
                       "typeParameters": null
                     },
                     {
-                      "typeId": 4,
+                      "typeId": "c672b07b5808bcc04715d73ca6d42eaabd332266144c1017c20833ef05a4a484",
                       "type": "struct SomeStruct",
                       "components": [
                         {
                           "name": "a",
-                          "type": 5,
+                          "type": "d7649d428b9ff33d188ecbf38a7e4d8fd167fa01b2e10fe9a8f9308e52f1d7cc",
                           "typeArguments": null
                         },
                         {
                           "name": "b",
-                          "type": 1,
+                          "type": "7c5ee1cecf5f8eacd1284feb5f0bf2bdea533a51e2f0c9aabe9236d335989f3b",
                           "typeArguments": null
                         }
                       ],
                       "typeParameters": null
                     },
                     {
-                      "typeId": 5,
+                      "typeId": "d7649d428b9ff33d188ecbf38a7e4d8fd167fa01b2e10fe9a8f9308e52f1d7cc",
                       "type": "u32",
                       "components": null,
                       "typeParameters": null
@@ -85,11 +88,11 @@ mod tests {
                       "inputs": [
                         {
                           "name": "arg",
-                          "type": 2,
+                          "type": "e8eb147e011343bc28f52b84fcc29cd93b181471f88c5c6b77f5e0dd18193fa2",
                           "typeArguments": [
                             {
                               "name": "",
-                              "type": 4,
+                              "type": "c672b07b5808bcc04715d73ca6d42eaabd332266144c1017c20833ef05a4a484",
                               "typeArguments": null
                             }
                           ]
@@ -98,7 +101,7 @@ mod tests {
                       "name": "test_function",
                       "output": {
                         "name": "",
-                        "type": 0,
+                        "type": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d",
                         "typeArguments": null
                       },
                       "attributes": null
@@ -135,15 +138,18 @@ mod tests {
             name = "MyPredicate",
             abi = r#"
                     {
+                      "programType": "script",
+                      "specVersion": "0.0.0",
+                      "abiVersion": "0.0.0",
                       "types": [
                         {
-                          "typeId": 0,
+                          "typeId": "b760f44fa5965c2474a3b471467a22c43185152129295af588b022ae50b50903",
                           "type": "bool",
                           "components": null,
                           "typeParameters": null
                         },
                         {
-                          "typeId": 1,
+                          "typeId": "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
                           "type": "u64",
                           "components": null,
                           "typeParameters": null
@@ -154,14 +160,14 @@ mod tests {
                           "inputs": [
                             {
                               "name": "arg",
-                              "type": 1,
+                              "type": "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
                               "typeArguments": null
                             }
                           ],
                           "name": "main",
                           "output": {
                             "name": "",
-                            "type": 0,
+                            "type": "b760f44fa5965c2474a3b471467a22c43185152129295af588b022ae50b50903",
                             "typeArguments": null
                           },
                           "attributes": null
@@ -174,7 +180,7 @@ mod tests {
                           "name": "U64",
                           "configurableType": {
                             "name": "",
-                            "type": 1,
+                            "type": "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
                             "typeArguments": null
                           },
                           "offset": 100

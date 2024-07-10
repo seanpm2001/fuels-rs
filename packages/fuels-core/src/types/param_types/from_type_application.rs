@@ -20,7 +20,7 @@ impl ParamType {
     ///                  TypeApplication where the type id is the key.
     pub fn try_from_type_application(
         type_application: &TypeApplication,
-        type_lookup: &HashMap<usize, TypeDeclaration>,
+        type_lookup: &HashMap<String, TypeDeclaration>,
     ) -> Result<Self> {
         Type::try_from(type_application, type_lookup)?.try_into()
     }
@@ -44,15 +44,15 @@ impl Type {
     /// * `types`: all types used in the function call
     pub fn try_from(
         type_application: &TypeApplication,
-        type_lookup: &HashMap<usize, TypeDeclaration>,
+        type_lookup: &HashMap<String, TypeDeclaration>,
     ) -> Result<Self> {
         Self::resolve(type_application, type_lookup, &[])
     }
 
     fn resolve(
         type_application: &TypeApplication,
-        type_lookup: &HashMap<usize, TypeDeclaration>,
-        parent_generic_params: &[(usize, Type)],
+        type_lookup: &HashMap<String, TypeDeclaration>,
+        parent_generic_params: &[(String, Type)],
     ) -> Result<Self> {
         let type_declaration = type_lookup.get(&type_application.type_id).ok_or_else(|| {
             error!(
@@ -121,10 +121,10 @@ impl Type {
     ///                            enclosing type (a struct/enum/array etc.).
     fn determine_generics_for_type(
         type_application: &TypeApplication,
-        type_lookup: &HashMap<usize, TypeDeclaration>,
+        type_lookup: &HashMap<String, TypeDeclaration>,
         type_declaration: &TypeDeclaration,
-        parent_generic_params: &[(usize, Type)],
-    ) -> Result<Vec<(usize, Self)>> {
+        parent_generic_params: &[(String, Type)],
+    ) -> Result<Vec<(String, Self)>> {
         match &type_declaration.type_parameters {
             // The presence of type_parameters indicates that the current type
             // (a struct or an enum) defines some generic parameters (i.e. SomeStruct<T, K>).
@@ -363,12 +363,12 @@ mod tests {
         let parse_param_type = |type_field: &str| {
             let type_application = TypeApplication {
                 name: "".to_string(),
-                type_id: 0,
+                type_id: "0".to_string(),
                 type_arguments: None,
             };
 
             let declarations = [TypeDeclaration {
-                type_id: 0,
+                type_id: "0".to_string(),
                 type_field: type_field.to_string(),
                 components: None,
                 type_parameters: None,
@@ -376,7 +376,7 @@ mod tests {
 
             let type_lookup = declarations
                 .into_iter()
-                .map(|decl| (decl.type_id, decl))
+                .map(|decl| (decl.type_id.clone(), decl))
                 .collect::<HashMap<_, _>>();
 
             ParamType::try_from_type_application(&type_application, &type_lookup)
@@ -401,23 +401,26 @@ mod tests {
         // given
         let type_application = TypeApplication {
             name: "".to_string(),
-            type_id: 0,
+            type_id: "8c1a882c0315dca83e2c45fcd7c3d58baf6bdfb2241a6333d805805cb1af87d7".to_string(),
             type_arguments: None,
         };
 
         let declarations = [
             TypeDeclaration {
-                type_id: 0,
+                type_id: "8c1a882c0315dca83e2c45fcd7c3d58baf6bdfb2241a6333d805805cb1af87d7"
+                    .to_string(),
                 type_field: "[_; 10]".to_string(),
                 components: Some(vec![TypeApplication {
                     name: "__array_element".to_string(),
-                    type_id: 1,
+                    type_id: "c89951a24c6ca28c13fd1cfdc646b2b656d69e61a92b91023be7eb58eb914b6b"
+                        .to_string(),
                     type_arguments: None,
                 }]),
                 type_parameters: None,
             },
             TypeDeclaration {
-                type_id: 1,
+                type_id: "c89951a24c6ca28c13fd1cfdc646b2b656d69e61a92b91023be7eb58eb914b6b"
+                    .to_string(),
                 type_field: "u8".to_string(),
                 components: None,
                 type_parameters: None,
@@ -426,7 +429,7 @@ mod tests {
 
         let type_lookup = declarations
             .into_iter()
-            .map(|decl| (decl.type_id, decl))
+            .map(|decl| (decl.type_id.clone(), decl))
             .collect::<HashMap<_, _>>();
 
         // when
@@ -443,63 +446,79 @@ mod tests {
         // given
         let declarations = [
             TypeDeclaration {
-                type_id: 1,
+                type_id: "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5"
+                    .to_string(),
                 type_field: "generic T".to_string(),
                 components: None,
                 type_parameters: None,
             },
             TypeDeclaration {
-                type_id: 2,
+                type_id: "96a280a43420b581941eb0b5bfde9fc87356dcbc362f930a3d4de576efbd08c0"
+                    .to_string(),
                 type_field: "raw untyped ptr".to_string(),
                 components: None,
                 type_parameters: None,
             },
             TypeDeclaration {
-                type_id: 3,
+                type_id: "57e3d53c9cb625ad9ed8ece51564d1f6fb36c97759c8cf9f58ac6d23f508991d"
+                    .to_string(),
                 type_field: "struct std::vec::RawVec".to_string(),
                 components: Some(vec![
                     TypeApplication {
                         name: "ptr".to_string(),
-                        type_id: 2,
+                        type_id: "96a280a43420b581941eb0b5bfde9fc87356dcbc362f930a3d4de576efbd08c0"
+                            .to_string(),
                         type_arguments: None,
                     },
                     TypeApplication {
                         name: "cap".to_string(),
-                        type_id: 5,
+                        type_id: "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0"
+                            .to_string(),
                         type_arguments: None,
                     },
                 ]),
-                type_parameters: Some(vec![1]),
+                type_parameters: Some(vec![
+                    "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5".to_string(),
+                ]),
             },
             TypeDeclaration {
-                type_id: 4,
+                type_id: "0ed22b36f9d391a88e4c7f547515f73d17cc23ae75e1d38266d88bd905545fac"
+                    .to_string(),
                 type_field: "struct std::vec::Vec".to_string(),
                 components: Some(vec![
                     TypeApplication {
                         name: "buf".to_string(),
-                        type_id: 3,
+                        type_id: "57e3d53c9cb625ad9ed8ece51564d1f6fb36c97759c8cf9f58ac6d23f508991d"
+                            .to_string(),
                         type_arguments: Some(vec![TypeApplication {
                             name: "".to_string(),
-                            type_id: 1,
+                            type_id:
+                                "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5"
+                                    .to_string(),
                             type_arguments: None,
                         }]),
                     },
                     TypeApplication {
                         name: "len".to_string(),
-                        type_id: 5,
+                        type_id: "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0"
+                            .to_string(),
                         type_arguments: None,
                     },
                 ]),
-                type_parameters: Some(vec![1]),
+                type_parameters: Some(vec![
+                    "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5".to_string(),
+                ]),
             },
             TypeDeclaration {
-                type_id: 5,
+                type_id: "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0"
+                    .to_string(),
                 type_field: "u64".to_string(),
                 components: None,
                 type_parameters: None,
             },
             TypeDeclaration {
-                type_id: 6,
+                type_id: "c89951a24c6ca28c13fd1cfdc646b2b656d69e61a92b91023be7eb58eb914b6b"
+                    .to_string(),
                 type_field: "u8".to_string(),
                 components: None,
                 type_parameters: None,
@@ -508,17 +527,18 @@ mod tests {
 
         let type_application = TypeApplication {
             name: "arg".to_string(),
-            type_id: 4,
+            type_id: "0ed22b36f9d391a88e4c7f547515f73d17cc23ae75e1d38266d88bd905545fac".to_string(),
             type_arguments: Some(vec![TypeApplication {
                 name: "".to_string(),
-                type_id: 6,
+                type_id: "c89951a24c6ca28c13fd1cfdc646b2b656d69e61a92b91023be7eb58eb914b6b"
+                    .to_string(),
                 type_arguments: None,
             }]),
         };
 
         let type_lookup = declarations
             .into_iter()
-            .map(|decl| (decl.type_id, decl))
+            .map(|decl| (decl.type_id.clone(), decl))
             .collect::<HashMap<_, _>>();
 
         // when
@@ -535,23 +555,29 @@ mod tests {
         // given
         let declarations = [
             TypeDeclaration {
-                type_id: 1,
+                type_id: "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5"
+                    .to_string(),
                 type_field: "generic T".to_string(),
                 components: None,
                 type_parameters: None,
             },
             TypeDeclaration {
-                type_id: 2,
+                type_id: "c672b07b5808bcc04715d73ca6d42eaabd332266144c1017c20833ef05a4a484"
+                    .to_string(),
                 type_field: "struct SomeStruct".to_string(),
                 components: Some(vec![TypeApplication {
                     name: "field".to_string(),
-                    type_id: 1,
+                    type_id: "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5"
+                        .to_string(),
                     type_arguments: None,
                 }]),
-                type_parameters: Some(vec![1]),
+                type_parameters: Some(vec![
+                    "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5".to_string(),
+                ]),
             },
             TypeDeclaration {
-                type_id: 3,
+                type_id: "c89951a24c6ca28c13fd1cfdc646b2b656d69e61a92b91023be7eb58eb914b6b"
+                    .to_string(),
                 type_field: "u8".to_string(),
                 components: None,
                 type_parameters: None,
@@ -560,17 +586,18 @@ mod tests {
 
         let type_application = TypeApplication {
             name: "arg".to_string(),
-            type_id: 2,
+            type_id: "c672b07b5808bcc04715d73ca6d42eaabd332266144c1017c20833ef05a4a484".to_string(),
             type_arguments: Some(vec![TypeApplication {
                 name: "".to_string(),
-                type_id: 3,
+                type_id: "c89951a24c6ca28c13fd1cfdc646b2b656d69e61a92b91023be7eb58eb914b6b"
+                    .to_string(),
                 type_arguments: None,
             }]),
         };
 
         let type_lookup = declarations
             .into_iter()
-            .map(|decl| (decl.type_id, decl))
+            .map(|decl| (decl.type_id.clone(), decl))
             .collect::<HashMap<_, _>>();
 
         // when
@@ -594,23 +621,29 @@ mod tests {
         // given
         let declarations = [
             TypeDeclaration {
-                type_id: 1,
+                type_id: "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5"
+                    .to_string(),
                 type_field: "generic T".to_string(),
                 components: None,
                 type_parameters: None,
             },
             TypeDeclaration {
-                type_id: 2,
+                type_id: "e851f5ad23ee7d590c18e60c07c2045740bf05cb5693ba11375acd544bddf92b"
+                    .to_string(),
                 type_field: "enum SomeEnum".to_string(),
                 components: Some(vec![TypeApplication {
                     name: "Variant".to_string(),
-                    type_id: 1,
+                    type_id: "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5"
+                        .to_string(),
                     type_arguments: None,
                 }]),
-                type_parameters: Some(vec![1]),
+                type_parameters: Some(vec![
+                    "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5".to_string(),
+                ]),
             },
             TypeDeclaration {
-                type_id: 3,
+                type_id: "c89951a24c6ca28c13fd1cfdc646b2b656d69e61a92b91023be7eb58eb914b6b"
+                    .to_string(),
                 type_field: "u8".to_string(),
                 components: None,
                 type_parameters: None,
@@ -619,17 +652,18 @@ mod tests {
 
         let type_application = TypeApplication {
             name: "arg".to_string(),
-            type_id: 2,
+            type_id: "e851f5ad23ee7d590c18e60c07c2045740bf05cb5693ba11375acd544bddf92b".to_string(),
             type_arguments: Some(vec![TypeApplication {
                 name: "".to_string(),
-                type_id: 3,
+                type_id: "c89951a24c6ca28c13fd1cfdc646b2b656d69e61a92b91023be7eb58eb914b6b"
+                    .to_string(),
                 type_arguments: None,
             }]),
         };
 
         let type_lookup = declarations
             .into_iter()
-            .map(|decl| (decl.type_id, decl))
+            .map(|decl| (decl.type_id.clone(), decl))
             .collect::<HashMap<_, _>>();
 
         // when
@@ -653,30 +687,35 @@ mod tests {
         // given
         let declarations = [
             TypeDeclaration {
-                type_id: 1,
+                type_id: "56b55e635af124a5e6e02776aae4900fc9df13f0c47e80031cad5cdd4de114cd"
+                    .to_string(),
                 type_field: "(_, _)".to_string(),
                 components: Some(vec![
                     TypeApplication {
                         name: "__tuple_element".to_string(),
-                        type_id: 3,
+                        type_id: "c89951a24c6ca28c13fd1cfdc646b2b656d69e61a92b91023be7eb58eb914b6b"
+                            .to_string(),
                         type_arguments: None,
                     },
                     TypeApplication {
                         name: "__tuple_element".to_string(),
-                        type_id: 2,
+                        type_id: "b981aaab33f11582db8cbd128bb9e3f1ba866ee5af0e026e4357d2ac4aad48a5"
+                            .to_string(),
                         type_arguments: None,
                     },
                 ]),
                 type_parameters: None,
             },
             TypeDeclaration {
-                type_id: 2,
+                type_id: "b981aaab33f11582db8cbd128bb9e3f1ba866ee5af0e026e4357d2ac4aad48a5"
+                    .to_string(),
                 type_field: "str[15]".to_string(),
                 components: None,
                 type_parameters: None,
             },
             TypeDeclaration {
-                type_id: 3,
+                type_id: "c89951a24c6ca28c13fd1cfdc646b2b656d69e61a92b91023be7eb58eb914b6b"
+                    .to_string(),
                 type_field: "u8".to_string(),
                 components: None,
                 type_parameters: None,
@@ -685,12 +724,12 @@ mod tests {
 
         let type_application = TypeApplication {
             name: "arg".to_string(),
-            type_id: 1,
+            type_id: "56b55e635af124a5e6e02776aae4900fc9df13f0c47e80031cad5cdd4de114cd".to_string(),
             type_arguments: None,
         };
         let type_lookup = declarations
             .into_iter()
-            .map(|decl| (decl.type_id, decl))
+            .map(|decl| (decl.type_id.clone(), decl))
             .collect::<HashMap<_, _>>();
 
         // when
@@ -710,74 +749,90 @@ mod tests {
         // given
         let declarations = [
             TypeDeclaration {
-                type_id: 1,
-                type_field: "(_, _)".to_string(),
+                type_id: "31851892196da402ee63ba6e9675bbf858f69dddb79ac8f2cdbd7392db9a02f0"
+                    .to_string(),
+                type_field: "(M, M)".to_string(),
                 components: Some(vec![
                     TypeApplication {
                         name: "__tuple_element".to_string(),
-                        type_id: 11,
+                        type_id: "f6974ce1435fce21321eeb8db1b33feb36ae633339b47c2e241c70032237818d"
+                            .to_string(),
                         type_arguments: None,
                     },
                     TypeApplication {
                         name: "__tuple_element".to_string(),
-                        type_id: 11,
+                        type_id: "f6974ce1435fce21321eeb8db1b33feb36ae633339b47c2e241c70032237818d"
+                            .to_string(),
                         type_arguments: None,
                     },
                 ]),
                 type_parameters: None,
             },
             TypeDeclaration {
-                type_id: 2,
-                type_field: "(_, _)".to_string(),
+                type_id: "ac0b72a2786e210e8583146870fd47a0dc68f0202a008504e1357f7d98c64d92"
+                    .to_string(),
+                type_field: "(_, u32)".to_string(),
                 components: Some(vec![
                     TypeApplication {
                         name: "__tuple_element".to_string(),
-                        type_id: 4,
+                        type_id: "b6085a49d969adee018764744fe9b13b95c96b4276fbdf6e0fe711a51395efe9"
+                            .to_string(),
                         type_arguments: None,
                     },
                     TypeApplication {
                         name: "__tuple_element".to_string(),
-                        type_id: 24,
+                        type_id: "d7649d428b9ff33d188ecbf38a7e4d8fd167fa01b2e10fe9a8f9308e52f1d7cc"
+                            .to_string(),
                         type_arguments: None,
                     },
                 ]),
                 type_parameters: None,
             },
             TypeDeclaration {
-                type_id: 3,
-                type_field: "(_, _)".to_string(),
+                type_id: "d4fa84fae11822251f72a1eb8625b17f7e6b4cec0900655409e92f5f7a68d712"
+                    .to_string(),
+                type_field: "([U; 2], _)".to_string(),
                 components: Some(vec![
                     TypeApplication {
                         name: "__tuple_element".to_string(),
-                        type_id: 5,
+                        type_id: "6b833438bc096643b7f297db690d212a3828088c1de94c875ec41a4657484656"
+                            .to_string(),
                         type_arguments: None,
                     },
                     TypeApplication {
                         name: "__tuple_element".to_string(),
-                        type_id: 13,
+                        type_id: "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5"
+                            .to_string(),
                         type_arguments: None,
                     },
                 ]),
                 type_parameters: None,
             },
             TypeDeclaration {
-                type_id: 4,
+                type_id: "b6085a49d969adee018764744fe9b13b95c96b4276fbdf6e0fe711a51395efe9"
+                    .to_string(),
                 type_field: "[_; 1]".to_string(),
                 components: Some(vec![TypeApplication {
                     name: "__array_element".to_string(),
-                    type_id: 8,
+                    type_id: "5887b257713c202b61125469fb2f587866fca44d3c9a2f73a892a3051f7075c6"
+                        .to_string(),
                     type_arguments: Some(vec![TypeApplication {
                         name: "".to_string(),
-                        type_id: 22,
+                        type_id: "37b9b4cf2a3a2d797e8bb8d61df50ece43da46da3c1c709772d141a0ef665657"
+                            .to_string(),
                         type_arguments: Some(vec![TypeApplication {
                             name: "".to_string(),
-                            type_id: 21,
+                            type_id:
+                                "26a57cc79e3e9d2ce2dd7f4bd72e398006b75c8f531660fbddb8d2836002000a"
+                                    .to_string(),
                             type_arguments: Some(vec![TypeApplication {
                                 name: "".to_string(),
-                                type_id: 18,
+                                type_id: "9fc06006e7a495aacc35d471cf9e3336ea755bca468fe592b175da3124e56080"
+                    .to_string(),
                                 type_arguments: Some(vec![TypeApplication {
                                     name: "".to_string(),
-                                    type_id: 13,
+                                    type_id: "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5"
+                            .to_string(),
                                     type_arguments: None,
                                 }]),
                             }]),
@@ -787,207 +842,265 @@ mod tests {
                 type_parameters: None,
             },
             TypeDeclaration {
-                type_id: 5,
-                type_field: "[_; 2]".to_string(),
+                type_id: "6b833438bc096643b7f297db690d212a3828088c1de94c875ec41a4657484656"
+                    .to_string(),
+                type_field: "[U; 2]".to_string(),
                 components: Some(vec![TypeApplication {
                     name: "__array_element".to_string(),
-                    type_id: 14,
+                    type_id: "037c28680d4d1fe36b9eea25fdf0b1b158fc70d022e376a17fd2cf045b416525"
+                        .to_string(),
                     type_arguments: None,
                 }]),
                 type_parameters: None,
             },
             TypeDeclaration {
-                type_id: 6,
-                type_field: "[_; 2]".to_string(),
+                type_id: "59d1fa5b760f88b06a57a2f837405e688c6f1a216b623d6f6b42a4150f130bd0"
+                    .to_string(),
+                type_field: "[L; 2]".to_string(),
                 components: Some(vec![TypeApplication {
                     name: "__array_element".to_string(),
-                    type_id: 10,
+                    type_id: "d3d3a0cce1206fdf30b2c26e888c7bcc0003c2be76f42c2fb0dcceedc7f41c23"
+                        .to_string(),
                     type_arguments: None,
                 }]),
                 type_parameters: None,
             },
             TypeDeclaration {
-                type_id: 7,
+                type_id: "7c5ee1cecf5f8eacd1284feb5f0bf2bdea533a51e2f0c9aabe9236d335989f3b"
+                    .to_string(),
                 type_field: "b256".to_string(),
                 components: None,
                 type_parameters: None,
             },
             TypeDeclaration {
-                type_id: 8,
+                type_id: "5887b257713c202b61125469fb2f587866fca44d3c9a2f73a892a3051f7075c6"
+                    .to_string(),
                 type_field: "enum EnumWGeneric".to_string(),
                 components: Some(vec![
                     TypeApplication {
                         name: "A".to_string(),
-                        type_id: 25,
+                        type_id: "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0"
+                            .to_string(),
                         type_arguments: None,
                     },
                     TypeApplication {
                         name: "B".to_string(),
-                        type_id: 12,
+                        type_id: "29863e87bf9a923c276be0ed8fd92f9d026d9b6b5d85f4f81d3be34be2ac876e"
+                            .to_string(),
                         type_arguments: None,
                     },
                 ]),
-                type_parameters: Some(vec![12]),
+                type_parameters: Some(vec![
+                    "29863e87bf9a923c276be0ed8fd92f9d026d9b6b5d85f4f81d3be34be2ac876e".to_string(),
+                ]),
             },
             TypeDeclaration {
-                type_id: 9,
+                type_id: "da229034ccc7938a0807cae31167ca4d3dc9f99e2eca4bfb4a2a740baf02a96f"
+                    .to_string(),
                 type_field: "generic K".to_string(),
                 components: None,
                 type_parameters: None,
             },
             TypeDeclaration {
-                type_id: 10,
+                type_id: "d3d3a0cce1206fdf30b2c26e888c7bcc0003c2be76f42c2fb0dcceedc7f41c23"
+                    .to_string(),
                 type_field: "generic L".to_string(),
                 components: None,
                 type_parameters: None,
             },
             TypeDeclaration {
-                type_id: 11,
+                type_id: "f6974ce1435fce21321eeb8db1b33feb36ae633339b47c2e241c70032237818d"
+                    .to_string(),
                 type_field: "generic M".to_string(),
                 components: None,
                 type_parameters: None,
             },
             TypeDeclaration {
-                type_id: 12,
+                type_id: "29863e87bf9a923c276be0ed8fd92f9d026d9b6b5d85f4f81d3be34be2ac876e"
+                    .to_string(),
                 type_field: "generic N".to_string(),
                 components: None,
                 type_parameters: None,
             },
             TypeDeclaration {
-                type_id: 13,
+                type_id: "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5"
+                    .to_string(),
                 type_field: "generic T".to_string(),
                 components: None,
                 type_parameters: None,
             },
             TypeDeclaration {
-                type_id: 14,
+                type_id: "037c28680d4d1fe36b9eea25fdf0b1b158fc70d022e376a17fd2cf045b416525"
+                    .to_string(),
                 type_field: "generic U".to_string(),
                 components: None,
                 type_parameters: None,
             },
             TypeDeclaration {
-                type_id: 15,
+                type_id: "96a280a43420b581941eb0b5bfde9fc87356dcbc362f930a3d4de576efbd08c0"
+                    .to_string(),
                 type_field: "raw untyped ptr".to_string(),
                 components: None,
                 type_parameters: None,
             },
             TypeDeclaration {
-                type_id: 16,
+                type_id: "25f82d8593ab240c80e14f5ca12cc6cc05fe471294c770351b9164422a4cd3cd"
+                    .to_string(),
                 type_field: "str[2]".to_string(),
                 components: None,
                 type_parameters: None,
             },
             TypeDeclaration {
-                type_id: 17,
+                type_id: "e132d766d39072d538f1f7fa200505a4ae241eac4e5072c141f378c5060bf861"
+                    .to_string(),
                 type_field: "struct MegaExample".to_string(),
                 components: Some(vec![
                     TypeApplication {
                         name: "a".to_string(),
-                        type_id: 3,
+                        type_id: "d4fa84fae11822251f72a1eb8625b17f7e6b4cec0900655409e92f5f7a68d712"
+                            .to_string(),
                         type_arguments: None,
                     },
                     TypeApplication {
                         name: "b".to_string(),
-                        type_id: 23,
+                        type_id: "0ed22b36f9d391a88e4c7f547515f73d17cc23ae75e1d38266d88bd905545fac"
+                            .to_string(),
                         type_arguments: Some(vec![TypeApplication {
                             name: "".to_string(),
-                            type_id: 2,
+                            type_id:
+                                "ac0b72a2786e210e8583146870fd47a0dc68f0202a008504e1357f7d98c64d92"
+                                    .to_string(),
                             type_arguments: None,
                         }]),
                     },
                 ]),
-                type_parameters: Some(vec![13, 14]),
+                type_parameters: Some(vec![
+                    "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5".to_string(),
+                    "037c28680d4d1fe36b9eea25fdf0b1b158fc70d022e376a17fd2cf045b416525".to_string(),
+                ]),
             },
             TypeDeclaration {
-                type_id: 18,
+                type_id: "9fc06006e7a495aacc35d471cf9e3336ea755bca468fe592b175da3124e56080"
+                    .to_string(),
                 type_field: "struct PassTheGenericOn".to_string(),
                 components: Some(vec![TypeApplication {
                     name: "one".to_string(),
-                    type_id: 20,
+                    type_id: "c42ae53197826e39bb6e7e5a275f28fbd7e39b595cc695914132067c43e7b8c1"
+                        .to_string(),
                     type_arguments: Some(vec![TypeApplication {
                         name: "".to_string(),
-                        type_id: 9,
+                        type_id: "da229034ccc7938a0807cae31167ca4d3dc9f99e2eca4bfb4a2a740baf02a96f"
+                            .to_string(),
                         type_arguments: None,
                     }]),
                 }]),
-                type_parameters: Some(vec![9]),
+                type_parameters: Some(vec![
+                    "da229034ccc7938a0807cae31167ca4d3dc9f99e2eca4bfb4a2a740baf02a96f".to_string(),
+                ]),
             },
             TypeDeclaration {
-                type_id: 19,
+                type_id: "57e3d53c9cb625ad9ed8ece51564d1f6fb36c97759c8cf9f58ac6d23f508991d"
+                    .to_string(),
                 type_field: "struct std::vec::RawVec".to_string(),
                 components: Some(vec![
                     TypeApplication {
                         name: "ptr".to_string(),
-                        type_id: 15,
+                        type_id: "96a280a43420b581941eb0b5bfde9fc87356dcbc362f930a3d4de576efbd08c0"
+                            .to_string(),
                         type_arguments: None,
                     },
                     TypeApplication {
                         name: "cap".to_string(),
-                        type_id: 25,
+                        type_id: "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0"
+                            .to_string(),
                         type_arguments: None,
                     },
                 ]),
-                type_parameters: Some(vec![13]),
+                type_parameters: Some(vec![
+                    "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5".to_string(),
+                ]),
             },
             TypeDeclaration {
-                type_id: 20,
+                type_id: "c42ae53197826e39bb6e7e5a275f28fbd7e39b595cc695914132067c43e7b8c1"
+                    .to_string(),
                 type_field: "struct SimpleGeneric".to_string(),
                 components: Some(vec![TypeApplication {
                     name: "single_generic_param".to_string(),
-                    type_id: 13,
+                    type_id: "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5"
+                        .to_string(),
                     type_arguments: None,
                 }]),
-                type_parameters: Some(vec![13]),
+                type_parameters: Some(vec![
+                    "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5".to_string(),
+                ]),
             },
             TypeDeclaration {
-                type_id: 21,
+                type_id: "26a57cc79e3e9d2ce2dd7f4bd72e398006b75c8f531660fbddb8d2836002000a"
+                    .to_string(),
                 type_field: "struct StructWArrayGeneric".to_string(),
                 components: Some(vec![TypeApplication {
                     name: "a".to_string(),
-                    type_id: 6,
+                    type_id: "59d1fa5b760f88b06a57a2f837405e688c6f1a216b623d6f6b42a4150f130bd0"
+                        .to_string(),
                     type_arguments: None,
                 }]),
-                type_parameters: Some(vec![10]),
+                type_parameters: Some(vec![
+                    "d3d3a0cce1206fdf30b2c26e888c7bcc0003c2be76f42c2fb0dcceedc7f41c23".to_string(),
+                ]),
             },
             TypeDeclaration {
-                type_id: 22,
+                type_id: "37b9b4cf2a3a2d797e8bb8d61df50ece43da46da3c1c709772d141a0ef665657"
+                    .to_string(),
                 type_field: "struct StructWTupleGeneric".to_string(),
                 components: Some(vec![TypeApplication {
                     name: "a".to_string(),
-                    type_id: 1,
+                    type_id: "31851892196da402ee63ba6e9675bbf858f69dddb79ac8f2cdbd7392db9a02f0"
+                        .to_string(),
                     type_arguments: None,
                 }]),
-                type_parameters: Some(vec![11]),
+                type_parameters: Some(vec![
+                "f6974ce1435fce21321eeb8db1b33feb36ae633339b47c2e241c70032237818d"
+                    .to_string(),
+]),
             },
             TypeDeclaration {
-                type_id: 23,
+                type_id: "0ed22b36f9d391a88e4c7f547515f73d17cc23ae75e1d38266d88bd905545fac"
+                    .to_string(),
                 type_field: "struct std::vec::Vec".to_string(),
                 components: Some(vec![
                     TypeApplication {
                         name: "buf".to_string(),
-                        type_id: 19,
+                        type_id: "57e3d53c9cb625ad9ed8ece51564d1f6fb36c97759c8cf9f58ac6d23f508991d"
+                            .to_string(),
                         type_arguments: Some(vec![TypeApplication {
                             name: "".to_string(),
-                            type_id: 13,
+                            type_id:
+                                "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5"
+                                    .to_string(),
                             type_arguments: None,
                         }]),
                     },
                     TypeApplication {
                         name: "len".to_string(),
-                        type_id: 25,
+                        type_id: "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0"
+                            .to_string(),
                         type_arguments: None,
                     },
                 ]),
-                type_parameters: Some(vec![13]),
+                type_parameters: Some(vec![
+                    "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5".to_string(),
+                ]),
             },
             TypeDeclaration {
-                type_id: 24,
+                type_id: "d7649d428b9ff33d188ecbf38a7e4d8fd167fa01b2e10fe9a8f9308e52f1d7cc"
+                    .to_string(),
                 type_field: "u32".to_string(),
                 components: None,
                 type_parameters: None,
             },
             TypeDeclaration {
-                type_id: 25,
+                type_id: "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0"
+                    .to_string(),
                 type_field: "u64".to_string(),
                 components: None,
                 type_parameters: None,
@@ -996,21 +1109,23 @@ mod tests {
 
         let type_lookup = declarations
             .into_iter()
-            .map(|decl| (decl.type_id, decl))
+            .map(|decl| (decl.type_id.clone(), decl))
             .collect::<HashMap<_, _>>();
 
         let type_application = TypeApplication {
             name: "arg1".to_string(),
-            type_id: 17,
+            type_id: "e132d766d39072d538f1f7fa200505a4ae241eac4e5072c141f378c5060bf861".to_string(),
             type_arguments: Some(vec![
                 TypeApplication {
                     name: "".to_string(),
-                    type_id: 16,
+                    type_id: "25f82d8593ab240c80e14f5ca12cc6cc05fe471294c770351b9164422a4cd3cd"
+                        .to_string(),
                     type_arguments: None,
                 },
                 TypeApplication {
                     name: "".to_string(),
-                    type_id: 7,
+                    type_id: "7c5ee1cecf5f8eacd1284feb5f0bf2bdea533a51e2f0c9aabe9236d335989f3b"
+                        .to_string(),
                     type_arguments: None,
                 },
             ]),
@@ -1099,7 +1214,6 @@ mod tests {
 
         Ok(())
     }
-
     #[test]
     fn try_vector_is_type_path_backward_compatible() {
         // TODO: To be removed once https://github.com/FuelLabs/fuels-rs/issues/881 is unblocked.

@@ -34,7 +34,7 @@ mod tests {
             type_id: "0".to_string(),
             type_field: "".to_string(),
             components: None,
-            type_parameters: Some(vec![1, 2]),
+            type_parameters: Some(vec!["1".to_string(), "2".to_string()]),
         };
         let generic_1 = TypeDeclaration {
             type_id: "1".to_string(),
@@ -44,14 +44,14 @@ mod tests {
         };
 
         let generic_2 = TypeDeclaration {
-            type_id: "2",
+            type_id: "1".to_string(),
             type_field: "generic K".to_string(),
             components: None,
             type_parameters: None,
         };
 
         let types = [generic_1, generic_2]
-            .map(|decl| (decl.type_id, decl))
+            .map(|decl| (decl.type_id.clone(), decl))
             .into_iter()
             .collect();
 
@@ -75,7 +75,7 @@ mod tests {
     #[test]
     fn can_extract_struct_name() {
         let declaration = TypeDeclaration {
-            type_id: 0,
+            type_id: "a0f64f9a9fdfdd1cc8366c55c1a7a6e4bc3dd10357a49417cc989a4b3724ff47".to_string(),
             type_field: "struct SomeName".to_string(),
             components: None,
             type_parameters: None,
@@ -89,7 +89,7 @@ mod tests {
     #[test]
     fn can_extract_enum_name() {
         let declaration = TypeDeclaration {
-            type_id: 0,
+            type_id: "2dac74503644471793ed4937d098a67f8638c2e4d3e44a40e5bcdfd12a6230a3".to_string(),
             type_field: "enum SomeEnumName".to_string(),
             components: None,
             type_parameters: None,
