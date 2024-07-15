@@ -243,129 +243,134 @@ mod tests {
         abigen!(Contract(
             name = "MyContract",
             abi = r#" {
-  "types": [
-    {
-      "typeId": 0,
-      "type": "()",
-      "components": [],
-      "typeParameters": null
-    },
-    {
-      "typeId": 1,
-      "type": "enum MyEnum",
-      "components": [
-        {
-          "name": "One",
-          "type": 7,
-          "typeArguments": null
-        }
-      ],
-      "typeParameters": [
-        3,
-        2
-      ]
-    },
-    {
-      "typeId": 2,
-      "type": "generic K",
-      "components": null,
-      "typeParameters": null
-    },
-    {
-      "typeId": 3,
-      "type": "generic T",
-      "components": null,
-      "typeParameters": null
-    },
-    {
-      "typeId": 4,
-      "type": "struct MyStruct",
-      "components": [
-        {
-          "name": "field",
-          "type": 7,
-          "typeArguments": null
-        }
-      ],
-      "typeParameters": [
-        3,
-        2
-      ]
-    },
-    {
-      "typeId": 5,
-      "type": "u16",
-      "components": null,
-      "typeParameters": null
-    },
-    {
-      "typeId": 6,
-      "type": "u32",
-      "components": null,
-      "typeParameters": null
-    },
-    {
-      "typeId": 7,
-      "type": "u64",
-      "components": null,
-      "typeParameters": null
-    },
-    {
-      "typeId": 8,
-      "type": "u8",
-      "components": null,
-      "typeParameters": null
-    }
-  ],
-  "functions": [
-    {
-      "inputs": [
-        {
-          "name": "arg",
-          "type": 4,
-          "typeArguments": [
-            {
-              "name": "",
-              "type": 8,
-              "typeArguments": null
-            },
-            {
-              "name": "",
-              "type": 5,
-              "typeArguments": null
-            }
-          ]
-        },
-        {
-          "name": "arg_2",
-          "type": 1,
-          "typeArguments": [
-            {
-              "name": "",
-              "type": 6,
-              "typeArguments": null
-            },
-            {
-              "name": "",
-              "type": 7,
-              "typeArguments": null
-            }
-          ]
-        }
-      ],
-      "name": "test_function",
-      "output": {
-        "name": "",
-        "type": 0,
-        "typeArguments": null
-      },
-      "attributes": null
-    }
-  ],
-  "loggedTypes": [],
-  "messagesTypes": [],
-  "configurables": []
-}"#
+              "programType": "contract",
+              "specVersion": "0.0.0",
+              "abiVersion": "0.0.0",
+              "types": [
+                {
+                  "typeId": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d",
+                  "type": "()",
+                  "components": [],
+                  "typeParameters": null
+                },
+                {
+                  "typeId": "f097a9c7cabaa22d324d564b43210e927784b6f73609fe9e55900268b15910f5",
+                  "type": "enum MyEnum",
+                  "components": [
+                    {
+                      "name": "One",
+                      "type": "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
+                      "typeArguments": null
+                    }
+                  ],
+                  "typeParameters": [
+                    "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5",
+                    "da229034ccc7938a0807cae31167ca4d3dc9f99e2eca4bfb4a2a740baf02a96f"
+
+                  ]
+                },
+                {
+                  "typeId": "da229034ccc7938a0807cae31167ca4d3dc9f99e2eca4bfb4a2a740baf02a96f",
+                  "type": "generic K",
+                  "components": null,
+                  "typeParameters": null
+                },
+                {
+                  "typeId": "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5",
+                  "type": "generic T",
+                  "components": null,
+                  "typeParameters": null
+                },
+                {
+                  "typeId": "c09f518d252533423934354a0974a7894bc99afbb03eb6f0956def50ae4146f0",
+                  "type": "struct MyStruct",
+                  "components": [
+                    {
+                      "name": "field",
+                      "type": "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
+                      "typeArguments": null
+                    }
+                  ],
+                  "typeParameters": [
+                    "8b8c08c464656c9a4b876c13199929c5ceb37ff6c927eaeefd756c12278e98c5",
+                    "da229034ccc7938a0807cae31167ca4d3dc9f99e2eca4bfb4a2a740baf02a96f"
+
+                  ]
+                },
+                {
+                  "typeId": "29881aad8730c5ab11d275376323d8e4ff4179aae8ccb6c13fe4902137e162ef",
+                  "type": "u16",
+                  "components": null,
+                  "typeParameters": null
+                },
+                {
+                  "typeId": "d7649d428b9ff33d188ecbf38a7e4d8fd167fa01b2e10fe9a8f9308e52f1d7cc",
+                  "type": "u32",
+                  "components": null,
+                  "typeParameters": null
+                },
+                {
+                  "typeId": "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
+                  "type": "u64",
+                  "components": null,
+                  "typeParameters": null
+                },
+                {
+                  "typeId": "c89951a24c6ca28c13fd1cfdc646b2b656d69e61a92b91023be7eb58eb914b6b",
+                  "type": "u8",
+                  "components": null,
+                  "typeParameters": null
+                }
+              ],
+              "functions": [
+                {
+                  "inputs": [
+                    {
+                      "name": "arg",
+                      "type": "c09f518d252533423934354a0974a7894bc99afbb03eb6f0956def50ae4146f0",
+                      "typeArguments": [
+                        {
+                          "name": "",
+                          "type": "c89951a24c6ca28c13fd1cfdc646b2b656d69e61a92b91023be7eb58eb914b6b",
+                          "typeArguments": null
+                        },
+                        {
+                          "name": "",
+                          "type": "29881aad8730c5ab11d275376323d8e4ff4179aae8ccb6c13fe4902137e162ef",
+                          "typeArguments": null
+                        }
+                      ]
+                    },
+                    {
+                      "name": "arg_2",
+                      "type": "f097a9c7cabaa22d324d564b43210e927784b6f73609fe9e55900268b15910f5",
+                      "typeArguments": [
+                        {
+                          "name": "",
+                          "type": "d7649d428b9ff33d188ecbf38a7e4d8fd167fa01b2e10fe9a8f9308e52f1d7cc",
+                          "typeArguments": null
+                        },
+                        {
+                          "name": "",
+                          "type": "1506e6f44c1d6291cdf46395a8e573276a4fa79e8ace3fc891e092ef32d1b0a0",
+                          "typeArguments": null
+                        }
+                      ]
+                    }
+                  ],
+                  "name": "test_function",
+                  "output": {
+                    "name": "",
+                    "type": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d",
+                    "typeArguments": null
+                  },
+                  "attributes": null
+                }
+              ],
+              "loggedTypes": [],
+              "messagesTypes": [],
+              "configurables": []
+            }"#
         ));
 
         // ANCHOR: unused_generics_struct

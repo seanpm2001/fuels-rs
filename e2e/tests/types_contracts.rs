@@ -803,15 +803,18 @@ async fn strings_must_have_correct_length() {
         name = "SimpleContract",
         abi = r#"
         {
+          "programType": "contract",
+          "specVersion": "0.0.0",
+          "abiVersion": "0.0.0",
           "types": [
             {
-              "typeId": 0,
+              "typeId": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d",
               "type": "()",
               "components": [],
               "typeParameters": null
             },
             {
-              "typeId": 1,
+              "typeId": "94f0fa95c830be5e4f711963e83259fe7e8bc723278ab6ec34449e791a99b53a",
               "type": "str[4]",
               "components": null,
               "typeParameters": null
@@ -822,14 +825,14 @@ async fn strings_must_have_correct_length() {
               "inputs": [
                 {
                   "name": "arg",
-                  "type": 1,
+                  "type": "94f0fa95c830be5e4f711963e83259fe7e8bc723278ab6ec34449e791a99b53a",
                   "typeArguments": null
                 }
               ],
               "name": "takes_string",
               "output": {
                 "name": "",
-                "type": 0,
+                "type": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d",
                 "typeArguments": null
               }
             }
@@ -860,15 +863,18 @@ async fn strings_must_have_all_ascii_chars() {
         name = "SimpleContract",
         abi = r#"
         {
+          "programType": "contract",
+          "specVersion": "0.0.0",
+          "abiVersion": "0.0.0",
           "types": [
             {
-              "typeId": 0,
+              "typeId": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d",
               "type": "()",
               "components": [],
               "typeParameters": null
             },
             {
-              "typeId": 1,
+              "typeId": "94f0fa95c830be5e4f711963e83259fe7e8bc723278ab6ec34449e791a99b53a",
               "type": "str[4]",
               "components": null,
               "typeParameters": null
@@ -879,14 +885,14 @@ async fn strings_must_have_all_ascii_chars() {
               "inputs": [
                 {
                   "name": "arg",
-                  "type": 1,
+                  "type": "94f0fa95c830be5e4f711963e83259fe7e8bc723278ab6ec34449e791a99b53a",
                   "typeArguments": null
                 }
               ],
               "name": "takes_string",
               "output": {
                 "name": "",
-                "type": 0,
+                "type": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d",
                 "typeArguments": null
               }
             }
@@ -910,50 +916,53 @@ async fn strings_must_have_correct_length_custom_types() {
         name = "SimpleContract",
         abi = r#"
         {
+          "programType": "contract",
+          "specVersion": "0.0.0",
+          "abiVersion": "0.0.0",
           "types": [
             {
-              "typeId": 0,
+              "typeId": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d",
               "type": "()",
               "components": [],
               "typeParameters": null
             },
             {
-              "typeId": 1,
+              "typeId": "f37e15110ccdc7d2b59926b1f2e0a1afabd00709771072214bb4508c0832c492",
               "type": "[_; 2]",
               "components": [
                 {
                   "name": "__array_element",
-                  "type": 4,
+                  "type": "c89951a24c6ca28c13fd1cfdc646b2b656d69e61a92b91023be7eb58eb914b6b",
                   "typeArguments": null
                 }
               ],
               "typeParameters": null
             },
             {
-              "typeId": 2,
+              "typeId": "f097a9c7cabaa22d324d564b43210e927784b6f73609fe9e55900268b15910f5",
               "type": "enum MyEnum",
               "components": [
                 {
                   "name": "Foo",
-                  "type": 1,
+                  "type": "f37e15110ccdc7d2b59926b1f2e0a1afabd00709771072214bb4508c0832c492",
                   "typeArguments": null
                 },
                 {
                   "name": "Bar",
-                  "type": 3,
+                  "type": "94f0fa95c830be5e4f711963e83259fe7e8bc723278ab6ec34449e791a99b53a",
                   "typeArguments": null
                 }
               ],
               "typeParameters": null
             },
             {
-              "typeId": 3,
+              "typeId": "94f0fa95c830be5e4f711963e83259fe7e8bc723278ab6ec34449e791a99b53a",
               "type": "str[4]",
               "components": null,
               "typeParameters": null
             },
             {
-              "typeId": 4,
+              "typeId": "c89951a24c6ca28c13fd1cfdc646b2b656d69e61a92b91023be7eb58eb914b6b",
               "type": "u8",
               "components": null,
               "typeParameters": null
@@ -964,14 +973,14 @@ async fn strings_must_have_correct_length_custom_types() {
               "inputs": [
                 {
                   "name": "value",
-                  "type": 2,
+                  "type": "f097a9c7cabaa22d324d564b43210e927784b6f73609fe9e55900268b15910f5",
                   "typeArguments": null
                 }
               ],
               "name": "takes_enum",
               "output": {
                 "name": "",
-                "type": 0,
+                "type": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d",
                 "typeArguments": null
               }
             }
@@ -995,50 +1004,53 @@ async fn strings_must_have_all_ascii_chars_custom_types() {
         name = "SimpleContract",
         abi = r#"
         {
+          "programType": "contract",
+          "specVersion": "0.0.0",
+          "abiVersion": "0.0.0",
           "types": [
             {
-              "typeId": 0,
+              "typeId": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d",
               "type": "()",
               "components": [],
               "typeParameters": null
             },
             {
-              "typeId": 1,
+              "typeId": "94f0fa95c830be5e4f711963e83259fe7e8bc723278ab6ec34449e791a99b53a",
               "type": "str[4]",
               "components": null,
               "typeParameters": null
             },
             {
-              "typeId": 2,
+              "typeId": "a74273d5c9a1a2a57628cc8a418d741c6de337f2ea9335bee76c61a45e7a4669",
               "type": "struct InnerStruct",
               "components": [
                 {
                   "name": "bar",
-                  "type": 1,
+                  "type": "94f0fa95c830be5e4f711963e83259fe7e8bc723278ab6ec34449e791a99b53a",
                   "typeArguments": null
                 }
               ],
               "typeParameters": null
             },
             {
-              "typeId": 3,
+              "typeId": "56ed4b87478d6f24d6fea9034e8264b3688e31c4502ec201b4017fef95fddd6b",
               "type": "struct MyNestedStruct",
               "components": [
                 {
                   "name": "x",
-                  "type": 4,
+                  "type": "29881aad8730c5ab11d275376323d8e4ff4179aae8ccb6c13fe4902137e162ef",
                   "typeArguments": null
                 },
                 {
                   "name": "foo",
-                  "type": 2,
+                  "type": "a74273d5c9a1a2a57628cc8a418d741c6de337f2ea9335bee76c61a45e7a4669",
                   "typeArguments": null
                 }
               ],
               "typeParameters": null
             },
             {
-              "typeId": 4,
+              "typeId": "29881aad8730c5ab11d275376323d8e4ff4179aae8ccb6c13fe4902137e162ef",
               "type": "u16",
               "components": null,
               "typeParameters": null
@@ -1049,14 +1061,14 @@ async fn strings_must_have_all_ascii_chars_custom_types() {
               "inputs": [
                 {
                   "name": "top_value",
-                  "type": 3,
+                  "type": "56ed4b87478d6f24d6fea9034e8264b3688e31c4502ec201b4017fef95fddd6b",
                   "typeArguments": null
                 }
               ],
               "name": "takes_nested_struct",
               "output": {
                 "name": "",
-                "type": 0,
+                "type": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d",
                 "typeArguments": null
               }
             }

@@ -16,38 +16,41 @@ async fn create_struct_from_decoded_tokens() -> Result<()> {
         name = "SimpleContract",
         abi = r#"
         {
+            "programType": "contract",
+            "specVersion": "0.0.0",
+            "abiVersion": "0.0.0",
             "types": [
               {
-                "typeId": 0,
+                "typeId": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d",
                 "type": "()",
                 "components": [],
                 "typeParameters": null
               },
               {
-                "typeId": 1,
+                "typeId": "7c5ee1cecf5f8eacd1284feb5f0bf2bdea533a51e2f0c9aabe9236d335989f3b",
                 "type": "bool",
                 "components": null,
                 "typeParameters": null
               },
               {
-                "typeId": 2,
+                "typeId": "c09f518d252533423934354a0974a7894bc99afbb03eb6f0956def50ae4146f0",
                 "type": "struct MyStruct",
                 "components": [
                   {
                     "name": "foo",
-                    "type": 3,
+                    "type": "c89951a24c6ca28c13fd1cfdc646b2b656d69e61a92b91023be7eb58eb914b6b",
                     "typeArguments": null
                   },
                   {
                     "name": "bar",
-                    "type": 1,
+                    "type": "7c5ee1cecf5f8eacd1284feb5f0bf2bdea533a51e2f0c9aabe9236d335989f3b",
                     "typeArguments": null
                   }
                 ],
                 "typeParameters": null
               },
               {
-                "typeId": 3,
+                "typeId": "c89951a24c6ca28c13fd1cfdc646b2b656d69e61a92b91023be7eb58eb914b6b",
                 "type": "u8",
                 "components": null,
                 "typeParameters": null
@@ -58,14 +61,14 @@ async fn create_struct_from_decoded_tokens() -> Result<()> {
                 "inputs": [
                   {
                     "name": "my_val",
-                    "type": 2,
+                    "type": "c09f518d252533423934354a0974a7894bc99afbb03eb6f0956def50ae4146f0",
                     "typeArguments": null
                   }
                 ],
                 "name": "takes_struct",
                 "output": {
                   "name": "",
-                  "type": 0,
+                  "type": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d",
                   "typeArguments": null
                 }
               }
@@ -96,50 +99,53 @@ async fn create_nested_struct_from_decoded_tokens() -> Result<()> {
         name = "SimpleContract",
         abi = r#"
         {
+            "programType": "contract",
+            "specVersion": "0.0.0",
+            "abiVersion": "0.0.0",
             "types": [
               {
-                "typeId": 0,
+                "typeId": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d",
                 "type": "()",
                 "components": [],
                 "typeParameters": null
               },
               {
-                "typeId": 1,
+                "typeId": "7c5ee1cecf5f8eacd1284feb5f0bf2bdea533a51e2f0c9aabe9236d335989f3b",
                 "type": "bool",
                 "components": null,
                 "typeParameters": null
               },
               {
-                "typeId": 2,
+                "typeId": "a74273d5c9a1a2a57628cc8a418d741c6de337f2ea9335bee76c61a45e7a4669",
                 "type": "struct InnerStruct",
                 "components": [
                   {
                     "name": "a",
-                    "type": 1,
+                    "type": "7c5ee1cecf5f8eacd1284feb5f0bf2bdea533a51e2f0c9aabe9236d335989f3b",
                     "typeArguments": null
                   }
                 ],
                 "typeParameters": null
               },
               {
-                "typeId": 3,
+                "typeId": "56ed4b87478d6f24d6fea9034e8264b3688e31c4502ec201b4017fef95fddd6b",
                 "type": "struct MyNestedStruct",
                 "components": [
                   {
                     "name": "x",
-                    "type": 4,
+                    "type": "29881aad8730c5ab11d275376323d8e4ff4179aae8ccb6c13fe4902137e162ef",
                     "typeArguments": null
                   },
                   {
                     "name": "foo",
-                    "type": 2,
+                    "type": "a74273d5c9a1a2a57628cc8a418d741c6de337f2ea9335bee76c61a45e7a4669",
                     "typeArguments": null
                   }
                 ],
                 "typeParameters": null
               },
               {
-                "typeId": 4,
+                "typeId": "29881aad8730c5ab11d275376323d8e4ff4179aae8ccb6c13fe4902137e162ef",
                 "type": "u16",
                 "components": null,
                 "typeParameters": null
@@ -150,14 +156,14 @@ async fn create_nested_struct_from_decoded_tokens() -> Result<()> {
                 "inputs": [
                   {
                     "name": "top_value",
-                    "type": 3,
+                    "type": "56ed4b87478d6f24d6fea9034e8264b3688e31c4502ec201b4017fef95fddd6b",
                     "typeArguments": null
                   }
                 ],
                 "name": "takes_nested_struct",
                 "output": {
                   "name": "",
-                  "type": 0,
+                  "type": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d",
                   "typeArguments": null
                 }
               }
