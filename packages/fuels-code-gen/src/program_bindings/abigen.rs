@@ -56,7 +56,12 @@ impl Abigen {
             (r"::\s*std\s*::\s*vec", "::alloc::vec"),
             (r"::\s*std\s*::\s*boxed", "::alloc::boxed"),
         ]
-        .map(|(reg_expr_str, substitute)| (Regex::new(reg_expr_str).unwrap(), substitute))
+        .map(|(reg_expr_str, substitute)| {
+            (
+                Regex::new(reg_expr_str).expect("cuold not create new regex instance"),
+                substitute,
+            )
+        })
         .into_iter()
         .fold(code.to_string(), |code, (regex, wasm_include)| {
             regex.replace_all(&code, wasm_include).to_string()

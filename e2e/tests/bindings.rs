@@ -55,15 +55,19 @@ async fn compile_bindings_from_inline_contract() -> Result<()> {
         name = "SimpleContract",
         abi = r#"
         {
+            "programType": "contract",
+            "specVersion": "1",
+            "abiVersion": "1",
+            "encoding": "1",
             "types": [
                 {
-                    "typeId": 0,
+                    "typeId": "7c5ee1cecf5f8eacd1284feb5f0bf2bdea533a51e2f0c9aabe9236d335989f3b",
                     "type": "bool",
                     "components": null,
                     "typeParameters": null
                 },
                 {
-                    "typeId": 1,
+                    "typeId": "d7649d428b9ff33d188ecbf38a7e4d8fd167fa01b2e10fe9a8f9308e52f1d7cc",
                     "type": "u32",
                     "components": null,
                     "typeParameters": null
@@ -74,14 +78,14 @@ async fn compile_bindings_from_inline_contract() -> Result<()> {
                     "inputs": [
                         {
                             "name": "only_argument",
-                            "type": 1,
+                            "type": "d7649d428b9ff33d188ecbf38a7e4d8fd167fa01b2e10fe9a8f9308e52f1d7cc",
                             "typeArguments": null
                         }
                     ],
                     "name": "takes_ints_returns_bool",
                     "output": {
                         "name": "",
-                        "type": 0,
+                        "type": "7c5ee1cecf5f8eacd1284feb5f0bf2bdea533a51e2f0c9aabe9236d335989f3b",
                         "typeArguments": null
                     }
                 }

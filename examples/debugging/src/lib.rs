@@ -41,7 +41,7 @@ mod tests {
         let type_lookup = parsed_abi
             .types
             .into_iter()
-            .map(|decl| (decl.type_id, decl))
+            .map(|decl| (decl.type_id.clone(), decl))
             .collect::<HashMap<_, _>>();
 
         let get_first_fn_argument = |fn_name: &str| {
